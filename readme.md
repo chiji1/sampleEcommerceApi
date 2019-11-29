@@ -1,9 +1,4 @@
 
-## **About airTimeFlip**
+## **About Ecommerce API**
 
-AirTimeFlip is a system built for fast airtime to cash switching in Nigeria. 
-
-- [Current Website](https://airtimeflip.com).
-
-
-# airtimeflip-api
+This Api is for a basic ecommerce API using laravel
