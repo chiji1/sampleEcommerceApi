@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\General\Product;
 
+use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -17,7 +18,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return Api::sendResponse(new ProductResource(Product::all()), 'Returned all products');
+//        return Api::sendResponse( ProductResource::collection(Product::all()), 'Returned all products');
+        return Api::sendResponse(ProductCollection::collection(Product::all()), 'Returned all Products');
+
     }
 
     /**
