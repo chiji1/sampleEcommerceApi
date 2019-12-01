@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\General\Product;
+namespace App\Http\Controllers\General\Reviews;
 
-use App\Http\Resources\Product\ProductCollection;
-use App\Http\Resources\Product\ProductResource;
+use App\Http\Resources\Reviews\ReviewsResource;
 use App\Models\Product;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Helper\ApiHelper as Api;
 
-class ProductController extends Controller
+class ReviewsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-//        return Api::sendResponse( ProductResource::collection(Product::all()), 'Returned all products');
-        return Api::sendResponse(ProductCollection::collection(Product::paginate(20)), 'Returned all Products');
-
+        //
+        return Api::sendResponse(ReviewsResource::collection(Product::find($id)->reviews), 'Sent all Reviews');
     }
 
     /**
@@ -47,13 +46,12 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Product $product
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show($id)
     {
         //
-        return Api::sendResponse(new ProductResource(Product::find(4)), 'Returned all products');
     }
 
     /**
