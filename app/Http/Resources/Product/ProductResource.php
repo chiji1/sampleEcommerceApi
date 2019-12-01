@@ -22,7 +22,7 @@ class ProductResource extends JsonResource
             'discountPrice' => round($this->price - ($this->price * $this->discount/100)),
             'rating' => round($this->reviews->sum('rating') / $this->reviews->count(), 1),
             'discount' => $this->discount,
-            'reviews' => $this->reviews,
+//            'reviews' => $this->reviews,
         ];
     }
 }
