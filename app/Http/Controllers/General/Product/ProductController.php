@@ -108,11 +108,17 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
         //
+        if ($product->delete()) {
+            return Api::sendResponse([], 'Product has been deleted');
+        } else {
+            return Api::sendError('Ooops there was an internal error', 'An error Occured while deleteing', 503);
+        }
     }
 }
