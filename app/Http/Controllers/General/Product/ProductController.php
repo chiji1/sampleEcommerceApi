@@ -75,7 +75,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
-        return Api::sendResponse(new ProductResource(Product::find(4)), 'Returned all products');
+        return Api::sendResponse(new ProductResource($product), 'Returned all products');
     }
 
     /**
@@ -92,13 +92,17 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param Product $product
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product)
     {
         //
+        $request['detail'] = $request->description;
+        unset($request['description']);
+        $product->update($request->all());
+        return Api::sendResponse($product, 'Sucessfully updated');
     }
 
     /**
