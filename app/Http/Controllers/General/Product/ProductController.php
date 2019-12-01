@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\General\Product;
 
+use App\Http\Requests\Product\ProductRequest;
 use App\Http\Resources\Product\ProductCollection;
 use App\Http\Resources\Product\ProductResource;
 use App\Models\Product;
@@ -11,10 +12,15 @@ use App\Helper\ApiHelper as Api;
 
 class ProductController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api')->except('index', 'show');
+    }
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
@@ -36,19 +42,35 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param ProductRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
         //
+        try {
+            $product = new Product();
+            $product->name = $request->name;
+            $product->detail = $request->description;
+            $product->price = $request->price;
+            $product->stock = $request->stock;
+            $product->discount = $request->discount;
+
+            if ($product->save()) {
+                return Api::sendResponse(new ProductResource($product), 'Returned');
+            }
+        } catch (\Exception $e) {
+            return Api::sendError($e->getMessage(), [], 503);
+        }
+
+
     }
 
     /**
      * Display the specified resource.
      *
      * @param Product $product
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function show(Product $product)
     {
