@@ -19,4 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('products', 'General\Product\ProductController');
 Route::resource('reviews', 'General\Reviews\ReviewsController');
-Route::resource('products/{id}/reviews', 'General\Reviews\ReviewsController');
+Route::resource('products/{product}/reviews', 'General\Reviews\ReviewsController');

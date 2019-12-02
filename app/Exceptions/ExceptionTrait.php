@@ -23,5 +23,7 @@ trait ExceptionTrait
         if ($e instanceof NotFoundHttpException) {
             return Api::sendError('Requested route not found', [], Response::HTTP_NOT_FOUND);
         }
+
+        return parent::render($request, $e);
     }
 }
