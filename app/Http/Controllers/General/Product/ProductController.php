@@ -17,6 +17,27 @@ class ProductController extends Controller
         $this->middleware('auth:api')->except('index', 'show');
     }
     /**
+     * @api {get} /projects Request all products
+     * @apiName GetProducts
+     * @apiGroup Products
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *         "success": true,
+     *          "payload": [
+     *              {
+     *                 "name": "Iphone",
+     *                 "description": "Sample description",
+     *                 "price": 20000
+     *                 "stock": 10
+     *                 "discount": 5
+     *               }
+     *          },
+     *          "message": "Returned all product
+     *     }
+     */
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\JsonResponse
