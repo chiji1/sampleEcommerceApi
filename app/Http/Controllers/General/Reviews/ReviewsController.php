@@ -86,23 +86,34 @@ class ReviewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param Product $product
+     * @param Review $review
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Product $product, Review $review)
     {
         //
+        $review->update($request->all());
+        return Api::sendResponse($review, 'Review has been updated');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Product $product
+     * @param Review $review
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Product $product, Review $review)
     {
         //
+        if ($review->delete()) {
+            return Api::sendResponse([], 'Review Deleted');
+        } else {
+            return Api::sendError('Could not delete Review', [], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
     }
 }
