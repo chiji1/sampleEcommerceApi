@@ -13,8 +13,8 @@ class ApiHelper
 {
     //
     /**
-     * @param $payload Data to be returned to frontend
-     * @param $message Message For response
+     * @param $payload object to be returned to frontend
+     * @param $message string For response
      * @return \Illuminate\Http\JsonResponse
      */
     public static function sendResponse($payload, $message) {
